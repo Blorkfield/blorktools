@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Force publish all packages (for initial release)'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   version-and-publish:
@@ -48,6 +54,13 @@ jobs:
       - name: Check for changes to publish
         id: check-changes
         run: |
+          # Force publish if manually triggered with force flag
+          if [ "${{ inputs.force_publish }}" = "true" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Force publish enabled - will publish all packages"
+            exit 0
+          fi
+
           # Check if lerna detects any packages that need versioning
           CHANGED=$(pnpm lerna changed --json 2>/dev/null || echo "[]")
           if [ "$CHANGED" = "[]" ]; then
@@ -60,7 +73,12 @@ jobs:
 
       - name: Version packages
         if: steps.check-changes.outputs.has_changes == 'true'
-        run: pnpm version-packages --yes
+        run: |
+          if [ "${{ inputs.force_publish }}" = "true" ]; then
+            pnpm lerna version --yes --force-publish
+          else
+            pnpm version-packages --yes
+          fi
 
       - name: Push version commit and tags
         if: steps.check-changes.outputs.has_changes == 'true'
