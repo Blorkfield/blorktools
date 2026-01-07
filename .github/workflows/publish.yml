@@ -1,20 +1,31 @@
-name: Publish to npm
+name: Version and Publish
 
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 jobs:
-  publish:
+  version-and-publish:
     runs-on: ubuntu-latest
-    # Only run if commit message matches Lerna version commit
-    if: contains(github.event.head_commit.message, 'chore(release): publish')
+    # Skip if this is a version bump commit (avoid infinite loop)
+    if: "!contains(github.event.head_commit.message, 'chore(release):')"
+
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Setup Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -28,6 +39,14 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Version packages
+        run: pnpm version-packages --yes
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+
+      - name: Push version commit and tags
+        run: git push --follow-tags
 
       - name: Build
         run: pnpm build
