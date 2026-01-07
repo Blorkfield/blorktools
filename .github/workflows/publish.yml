@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     # Skip if this is a version bump commit (avoid infinite loop)
     if: "!contains(github.event.head_commit.message, 'chore(release):')"
+    outputs:
+      has_changes: ${{ steps.check-changes.outputs.has_changes }}
 
     steps:
       - name: Generate bot token
@@ -43,18 +45,83 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Check for changes to publish
+        id: check-changes
+        run: |
+          # Check if lerna detects any packages that need versioning
+          CHANGED=$(pnpm lerna changed --json 2>/dev/null || echo "[]")
+          if [ "$CHANGED" = "[]" ]; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No packages need versioning"
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Packages to version: $CHANGED"
+          fi
+
       - name: Version packages
+        if: steps.check-changes.outputs.has_changes == 'true'
         run: pnpm version-packages --yes
-        env:
-          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
 
       - name: Push version commit and tags
+        if: steps.check-changes.outputs.has_changes == 'true'
         run: git push --follow-tags
 
       - name: Build
+        if: steps.check-changes.outputs.has_changes == 'true'
         run: pnpm build
 
-      - name: Publish packages
+      - name: Publish to npm
+        if: steps.check-changes.outputs.has_changes == 'true'
         run: pnpm publish-packages --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Get published versions for Docker
+        if: steps.check-changes.outputs.has_changes == 'true'
+        id: versions
+        run: |
+          # Get asset-debugger version from package.json
+          VERSION=$(node -p "require('./packages/asset_debugger/package.json').version")
+          echo "asset_debugger_version=$VERSION" >> $GITHUB_OUTPUT
+
+  publish-docker:
+    needs: version-and-publish
+    if: needs.version-and-publish.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main  # Get the latest with version bump
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get version
+        id: version
+        run: |
+          VERSION=$(node -p "require('./packages/asset_debugger/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: packages/asset_debugger/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/blorkfield/asset-debugger:${{ steps.version.outputs.version }}
+            ghcr.io/blorkfield/asset-debugger:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
