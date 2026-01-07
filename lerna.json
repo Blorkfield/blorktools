@@ -5,7 +5,8 @@
   "command": {
     "version": {
       "conventionalCommits": true,
-      "message": "chore(release): version bump"
+      "message": "chore(release): version bump",
+      "push": false
     },
     "publish": {
       "registry": "https://registry.npmjs.org"
