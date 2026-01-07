@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# 0.48.0 (2026-01-07)
+
+### Features
+
+- inital commit ([6f494a9](https://github.com/Blorkfield/blorktools/commit/6f494a964b8e986434e4cb1e02c2e346a892ece2))
+
 ## <small>0.47.14 (2025-08-20)</small>
 
 - fix(portfolio): dual local startup ([a58c3db](https://github.com/littlecarlito/littlecarlito.github.io/commit/a58c3db))
