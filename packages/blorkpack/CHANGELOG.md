@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.53.1](https://github.com/Blorkfield/blorktools/compare/@blorkfield/blorkpack@0.53.0...@blorkfield/blorkpack@0.53.1) (2026-01-07)
+
+**Note:** Version bump only for package @blorkfield/blorkpack
+
 # 0.53.0 (2026-01-07)
 
 ### Features
