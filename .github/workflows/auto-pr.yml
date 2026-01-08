@@ -132,19 +132,11 @@ jobs:
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for branch $GITHUB_REF_NAME"
           else
-            # Create PR and capture the number
-            PR_URL=$(gh pr create \
+            # Create PR
+            gh pr create \
               --title "${{ steps.parse.outputs.title }}" \
               --body "Auto-generated PR for branch \`$GITHUB_REF_NAME\`" \
-              --base main)
-
-            # Extract PR number from URL
-            PR_NUM=$(echo "$PR_URL" | grep -oE '[0-9]+$')
-
-            # Update title to include PR number
-            gh pr edit "$PR_NUM" --title "${{ steps.parse.outputs.title }} (#$PR_NUM)"
-
-            echo "Created PR #$PR_NUM with title: ${{ steps.parse.outputs.title }} (#$PR_NUM)"
+              --base main
           fi
         env:
           GH_TOKEN: ${{ steps.bot-token.outputs.token }}
