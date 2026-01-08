@@ -126,5 +126,10 @@ jobs:
           tags: |
             ghcr.io/blorkfield/asset-debugger:${{ steps.version.outputs.version }}
             ghcr.io/blorkfield/asset-debugger:latest
+          labels: |
+            org.opencontainers.image.version=${{ steps.version.outputs.version }}
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.created=${{ github.event.head_commit.timestamp }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
