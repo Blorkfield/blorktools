@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { injectUnifiedAnimationDetectionScript } from '../../data/animation-classifier';
-import { loadHtml2Canvas } from '../../loaders/html2canvas-loader';
+import { injectUnifiedAnimationDetectionScript } from '../../data/animation-classifier.js';
+import { loadHtml2Canvas } from '../../loaders/html2canvas-loader.js';
 
 const HTML2CANVAS_DEBUG_FLAG = false;
 

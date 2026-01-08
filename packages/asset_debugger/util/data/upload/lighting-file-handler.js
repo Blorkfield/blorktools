@@ -1,9 +1,9 @@
-import { updateState } from '../../state/scene-state';
-import { processLightingFile } from '../../workers/worker-manager';
-import * as worldPanelModule from '../../../panels/world-panel/world-panel';
-import { hidePreviewLoading, showPreviewLoading } from '../../../loading-splash/preview-loading-splash';
-import { formatFileSize } from './file-upload-manager';
-import { createClearButton } from '../../../landing-page/landing-page';
+import { updateState } from '../../state/scene-state.js';
+import { processLightingFile } from '../../workers/worker-manager.js';
+import * as worldPanelModule from '../../../panels/world-panel/world-panel.js';
+import { hidePreviewLoading, showPreviewLoading } from '../../../loading-splash/preview-loading-splash.js';
+import { formatFileSize } from './file-upload-manager.js';
+import { createClearButton } from '../../../landing-page/landing-page.js';
 
 /**
  * Handle lighting file upload

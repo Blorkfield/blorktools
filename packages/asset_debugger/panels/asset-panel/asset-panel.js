@@ -1,8 +1,8 @@
-import { getState } from '../../util/state/scene-state';
-import { createMeshVisibilityPanel } from './mesh-heading/mesh-heading';
-import { initAtlasPanel, updateAtlasVisualization } from './atlas-heading/atlas-heading';
+import { getState } from '../../util/state/scene-state.js';
+import { createMeshVisibilityPanel } from './mesh-heading/mesh-heading.js';
+import { initAtlasPanel, updateAtlasVisualization } from './atlas-heading/atlas-heading.js';
 import { initUvPanel, updateUvPanel } from './uv-heading/uv-heading.js';
-import { updateRigPanel } from './rig-heading/rig-heading';
+import { updateRigPanel } from './rig-heading/rig-heading.js';
 import { downloadUpdatedGlb, onGlbBufferUpdate } from '../../util/scene/glb-controller.js';
 
 let controlsInitialized = false;

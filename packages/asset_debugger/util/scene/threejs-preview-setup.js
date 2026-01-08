@@ -1,21 +1,21 @@
 import * as THREE from 'three';
-import { 
+import {
     animationPreviewCamera,
     animationPreviewRenderer,
     animationPreviewScene,
-    previewPlane, 
-    setAnimationPreviewCamera, 
-    setAnimationPreviewRenderer, 
-    setAnimationPreviewScene, 
-    setPreviewPlane, 
+    previewPlane,
+    setAnimationPreviewCamera,
+    setAnimationPreviewRenderer,
+    setAnimationPreviewScene,
+    setPreviewPlane,
     setPreviewRenderTarget
-} from "../state/threejs-state";
-import { showStatus } from '../../modals/html-editor-modal/html-editor-modal';
-import { createMeshInfoPanel } from '../../widgets/mesh-info-widget';
-import { createTextureFromIframe } from '../animation/render/iframe2texture-render-controller';
-import { getState } from '../state/scene-state';
-import { animatePreview } from '../animation/playback/animation-preview-controller';
-import { setIsPreviewActive } from '../state/animation-state';
+} from "../state/threejs-state.js";
+import { showStatus } from '../../modals/html-editor-modal/html-editor-modal.js';
+import { createMeshInfoPanel } from '../../widgets/mesh-info-widget.js';
+import { createTextureFromIframe } from '../animation/render/iframe2texture-render-controller.js';
+import { getState } from '../state/scene-state.js';
+import { animatePreview } from '../animation/playback/animation-preview-controller.js';
+import { setIsPreviewActive } from '../state/animation-state.js';
 
 export function setupThreeJsScene(container, iframe, currentMeshId, createInfoPanel = true) {
     try {

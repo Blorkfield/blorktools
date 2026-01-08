@@ -1,31 +1,31 @@
 import * as THREE from 'three';
-import { 
+import {
     isReversingAnimations,
     pushAnimationStack,
     setCapturingAnimations,
     setReversingAnimation,
-    resetCurrentAniamtionBatch, 
-    currentAnimationBatch, 
-    lastBatchTime, 
+    resetCurrentAniamtionBatch,
+    currentAnimationBatch,
+    lastBatchTime,
     resetReverseAnimationFrameId,
     reverseAnimationFrameId,
     animationStack,
     resetAnimationState
-} from '../state/css3d-state';
-import { createMeshInfoPanel } from '../../widgets/mesh-info-widget';
-import {     
+} from '../state/css3d-state.js';
+import { createMeshInfoPanel } from '../../widgets/mesh-info-widget.js';
+import {
     setAnimationCss3dRenderer,
     setAnimationCss3dScene,
     setAnimationCss3dObject,
     setAnimationPreviewCamera,
     setPreviewRenderTarget,
     animationPreviewCamera
-} from '../state/threejs-state';
-import { showStatus } from '../../modals/html-editor-modal/html-editor-modal';
-import { playNextReverseAnimation } from '../animation/playback/css3d-reversal-controller';
-import { setupBounceAnimationTracking } from '../animation/playback/css3d-bounce-controller';
-import { isPreviewActive } from '../state/animation-state';
-import { calculateMeshTransform } from './css3d-frame-factory';
+} from '../state/threejs-state.js';
+import { showStatus } from '../../modals/html-editor-modal/html-editor-modal.js';
+import { playNextReverseAnimation } from '../animation/playback/css3d-reversal-controller.js';
+import { setupBounceAnimationTracking } from '../animation/playback/css3d-bounce-controller.js';
+import { isPreviewActive } from '../state/animation-state.js';
+import { calculateMeshTransform } from './css3d-frame-factory.js';
 
 /**
  * Setup the CSS3D scene
