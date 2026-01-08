@@ -27,11 +27,50 @@ jobs:
           if [ -n "$EXISTING_PR" ]; then
             echo "PR #$EXISTING_PR already exists for branch $GITHUB_REF_NAME"
           else
+            # Convert branch name to conventional commit format
+            BRANCH="$GITHUB_REF_NAME"
+
+            # Extract prefix and description (handles both / and - separators)
+            if [[ "$BRANCH" == *"/"* ]]; then
+              PREFIX="${BRANCH%%/*}"
+              DESC="${BRANCH#*/}"
+            elif [[ "$BRANCH" == *"-"* ]]; then
+              PREFIX="${BRANCH%%-*}"
+              DESC="${BRANCH#*-}"
+            else
+              PREFIX=""
+              DESC="$BRANCH"
+            fi
+
+            # Map branch prefixes to conventional commit types
+            case "$PREFIX" in
+              feature|feat)     TYPE="feat" ;;
+              fix|bugfix|hotfix) TYPE="fix" ;;
+              chore)            TYPE="chore" ;;
+              docs|doc)         TYPE="docs" ;;
+              refactor)         TYPE="refactor" ;;
+              perf|performance) TYPE="perf" ;;
+              test|tests)       TYPE="test" ;;
+              style)            TYPE="style" ;;
+              ci)               TYPE="ci" ;;
+              build)            TYPE="build" ;;
+              *)                TYPE="" ;;
+            esac
+
+            # Format the title
+            if [ -n "$TYPE" ]; then
+              # Replace dashes/underscores with spaces in description
+              DESC=$(echo "$DESC" | tr '-' ' ' | tr '_' ' ')
+              TITLE="$TYPE: $DESC"
+            else
+              TITLE="$BRANCH"
+            fi
+
             gh pr create \
-              --title "$GITHUB_REF_NAME" \
+              --title "$TITLE" \
               --body "Auto-generated PR for branch \`$GITHUB_REF_NAME\`" \
               --base main
-            echo "Created PR for branch $GITHUB_REF_NAME"
+            echo "Created PR for branch $GITHUB_REF_NAME with title: $TITLE"
           fi
         env:
           GH_TOKEN: ${{ steps.bot-token.outputs.token }}
