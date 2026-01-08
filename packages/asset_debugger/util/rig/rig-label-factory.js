@@ -1,13 +1,13 @@
 import * as THREE from 'three';
-import { 
-    clearLabels, 
-    getLabelGroup, 
-    hideLabels, 
-    rigOptions, 
-    setLabelGroup, 
-    updateLabelPosition 
-} from "./rig-controller";
-import { boneVisualsGroup } from './bone-kinematics';
+import {
+    clearLabels,
+    getLabelGroup,
+    hideLabels,
+    rigOptions,
+    setLabelGroup,
+    updateLabelPosition
+} from "./rig-controller.js";
+import { boneVisualsGroup } from './bone-kinematics.js';
 
 /**
  * Create joint labels for all joints in the scene

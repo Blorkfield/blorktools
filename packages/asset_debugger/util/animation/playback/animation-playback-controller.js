@@ -1,16 +1,16 @@
-import { frameInterval } from "./animation-preview-controller";
-import { 
+import { frameInterval } from "./animation-preview-controller.js";
+import {
     ANALYSIS_DURATION_MS,
     animationDuration,
     isAnimationFinite,
-    isPlaybackActive, 
-    playbackStartTime, 
-    preRenderedFrames, 
-    setIsPlaybackActive, 
-    setIsPreviewAnimationPaused, 
-    setPlaybackStartTime 
-} from "../../state/animation-state";
-import { setLastAnimationTime } from "../../state/css3d-state";
+    isPlaybackActive,
+    playbackStartTime,
+    preRenderedFrames,
+    setIsPlaybackActive,
+    setIsPreviewAnimationPaused,
+    setPlaybackStartTime
+} from "../../state/animation-state.js";
+import { setLastAnimationTime } from "../../state/css3d-state.js";
 
 /**
  * Start playback timing - called when preview should begin playing

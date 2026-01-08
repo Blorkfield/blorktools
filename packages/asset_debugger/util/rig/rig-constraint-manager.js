@@ -1,9 +1,9 @@
 import * as THREE from 'three';
-import { jointPreviousValues } from "../../panels/asset-panel/rig-heading/rig-heading";
-import { findBoneByName, updateAllBoneMatrices } from "./bone-kinematics";
-import { rigDetails, rigOptions } from "./rig-controller";
-import { storeBoneCurrentState, updateConstraintSettingsState, updatePreviousValues } from "./rig-state-manager";
-import { disableApplyButton } from "./rig-ui-factory";
+import { jointPreviousValues } from "../../panels/asset-panel/rig-heading/rig-heading.js";
+import { findBoneByName, updateAllBoneMatrices } from "./bone-kinematics.js";
+import { rigDetails, rigOptions } from "./rig-controller.js";
+import { storeBoneCurrentState, updateConstraintSettingsState, updatePreviousValues } from "./rig-state-manager.js";
+import { disableApplyButton } from "./rig-ui-factory.js";
 
 /**
  * Create a none constraint (removes constraint)

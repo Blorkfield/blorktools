@@ -1,6 +1,6 @@
-import { formatFileSize } from "./file-upload-manager";
-import { TextureClassifier } from "../texture-classifier";
-import { updateState } from "../../state/scene-state";
+import { formatFileSize } from "./file-upload-manager.js";
+import { TextureClassifier } from "../texture-classifier.js";
+import { updateState } from "../../state/scene-state.js";
 
 const SUPPORTED_IMAGE_FORMATS = ['.png', '.jpg', '.jpeg', '.webp', '.tiff', '.tif'];
 const SUPPORTED_MODEL_FORMATS = ['.glb', '.gltf'];

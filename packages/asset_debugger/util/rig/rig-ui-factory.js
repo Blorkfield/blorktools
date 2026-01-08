@@ -1,6 +1,6 @@
-import { jointPreviousValues } from "../../panels/asset-panel/rig-heading/rig-heading";
-import { findBoneByName, lockedBones, toggleBoneLock } from "./bone-kinematics";
-import { jointSettingsDebug, updateConstraintSettingsState } from "./rig-state-manager";
+import { jointPreviousValues } from "../../panels/asset-panel/rig-heading/rig-heading.js";
+import { findBoneByName, lockedBones, toggleBoneLock } from "./bone-kinematics.js";
+import { jointSettingsDebug, updateConstraintSettingsState } from "./rig-state-manager.js";
 
 /**
  * Add bone constraint controls to a bone item element

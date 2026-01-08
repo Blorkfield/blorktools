@@ -1,9 +1,9 @@
-import { getState, updateState } from "../../state/scene-state";
-import { handleLightingUpload } from "./lighting-file-handler";
-import { handleModelUpload } from "./model-file-manager";
-import { handleBackgroundUpload } from "./background-file-handler";
-import { handleTextureUpload } from "./texture-file-handler";
-import { handleZipUpload } from "./zip-handler";
+import { getState, updateState } from "../../state/scene-state.js";
+import { handleLightingUpload } from "./lighting-file-handler.js";
+import { handleModelUpload } from "./model-file-manager.js";
+import { handleBackgroundUpload } from "./background-file-handler.js";
+import { handleTextureUpload } from "./texture-file-handler.js";
+import { handleZipUpload } from "./zip-handler.js";
 
 // File type configuration object - a centralized definition of properties for each file type
 const FILE_TYPE_CONFIG = {

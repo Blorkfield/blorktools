@@ -1,10 +1,10 @@
-import { infoPanel, resetInfoPanel } from "../../widgets/mesh-info-widget";
-import { logPreviewError } from "../state/log-util";
-import { cleanupCSS3D } from "./css3d-scene-manager";
-import { cleanupThreeJsScene, setupThreeJsScene } from "./threejs-preview-setup";
-import { setIsPreviewActive, setIsPreviewAnimationPaused, setLastTextureUpdateTime } from "../state/animation-state";
-import { reverseAnimationFrameId } from "../state/css3d-state";
-import { 
+import { infoPanel, resetInfoPanel } from "../../widgets/mesh-info-widget.js";
+import { logPreviewError } from "../state/log-util.js";
+import { cleanupCSS3D } from "./css3d-scene-manager.js";
+import { cleanupThreeJsScene, setupThreeJsScene } from "./threejs-preview-setup.js";
+import { setIsPreviewActive, setIsPreviewAnimationPaused, setLastTextureUpdateTime } from "../state/animation-state.js";
+import { reverseAnimationFrameId } from "../state/css3d-state.js";
+import {
     animationCss3dObject,
     animationCss3dRenderer,
     animationCss3dScene,
@@ -12,13 +12,13 @@ import {
     animationPreviewRenderer,
     animationPreviewScene,
     frameBuffer,
-    pendingTextureUpdate, 
-    previewPlane, 
-    previewRenderTarget, 
-    resetThreeJsState, 
-    setPendingTextureUpdate 
-} from "../state/threejs-state";
-import { previewAnimationId, resetLastAnimationFrameTime, resetPreviewAnimationId } from "../animation/playback/animation-preview-controller"
+    pendingTextureUpdate,
+    previewPlane,
+    previewRenderTarget,
+    resetThreeJsState,
+    setPendingTextureUpdate
+} from "../state/threejs-state.js";
+import { previewAnimationId, resetLastAnimationFrameTime, resetPreviewAnimationId } from "../animation/playback/animation-preview-controller.js";
 
 /**
  * Clean up Three.js preview resources using the generic cleanup utility
