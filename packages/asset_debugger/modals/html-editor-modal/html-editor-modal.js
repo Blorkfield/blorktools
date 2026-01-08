@@ -12,17 +12,17 @@ import {
     BINARY_DATA_PROPERTY 
 } from '../../util/state/glb-preview-state.js';
 import * as THREE from 'three';
-import { isPreviewActive, setLastTextureUpdateTime } from '../../util/state/animation-state';
-import { initalizePreview } from '../../util/animation/playback/animation-preview-controller';
+import { isPreviewActive, setLastTextureUpdateTime } from '../../util/state/animation-state.js';
+import { initalizePreview } from '../../util/animation/playback/animation-preview-controller.js';
 import { previewRenderTarget } from '../../util/state/threejs-state.js';
-import { 
-    getHtmlSettingsForMesh, 
-    loadHtmlForMesh, 
-    loadSettingsForMesh, 
-    saveHtmlForMesh, 
-    saveSettingsForMesh 
+import {
+    getHtmlSettingsForMesh,
+    loadHtmlForMesh,
+    loadSettingsForMesh,
+    saveHtmlForMesh,
+    saveSettingsForMesh
 } from '../../util/data/mesh-html-manager.js';
-import { cleanupThreeJsPreview } from '../../util/scene/threejs-preview-manager';
+import { cleanupThreeJsPreview } from '../../util/scene/threejs-preview-manager.js';
 import { updateHtmlIcons } from '../../panels/asset-panel/mesh-heading/mesh-heading.js';
 
 let maxCaptureRate = 0.5;

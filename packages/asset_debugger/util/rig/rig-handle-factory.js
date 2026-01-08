@@ -1,6 +1,6 @@
 import * as THREE from 'three';
-import { rigOptions } from './rig-controller';
-import { getIsDragging } from './rig-mouse-handler';
+import { rigOptions } from './rig-controller.js';
+import { getIsDragging } from './rig-mouse-handler.js';
 
 export let primaryRigHandle = null;
 

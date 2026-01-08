@@ -1,7 +1,7 @@
-import { createClearButton } from '../../../landing-page/landing-page';
-import { hidePreviewLoading, showPreviewLoading } from '../../../loading-splash/preview-loading-splash';
-import { updateState } from '../../state/scene-state';
-import { formatFileSize } from './file-upload-manager';
+import { createClearButton } from '../../../landing-page/landing-page.js';
+import { hidePreviewLoading, showPreviewLoading } from '../../../loading-splash/preview-loading-splash.js';
+import { updateState } from '../../state/scene-state.js';
+import { formatFileSize } from './file-upload-manager.js';
 
 /**
  * Handle background image file upload

@@ -1,27 +1,27 @@
 import * as THREE from 'three';
-import { CustomTextureSettings, showStatus } from '../../../modals/html-editor-modal/html-editor-modal';
-import { 
-    resetPreRenderState, 
+import { CustomTextureSettings, showStatus } from '../../../modals/html-editor-modal/html-editor-modal.js';
+import {
+    resetPreRenderState,
     setIsPreviewActive,
     setIsPreviewAnimationPaused,
     resetPlaybackTimingState,
     isPreviewAnimationPaused,
     isPreviewActive
-} from '../../state/animation-state';
-import { sanitizeHtml } from '../../data/string-serder';
-import { 
-    animationPreviewCamera, 
-    animationPreviewRenderer, 
-    animationPreviewScene, 
-    previewPlane, 
-    setPreviewRenderTarget 
-} from '../../state/threejs-state';
-import { runAnimationFrame } from '../../animation/playback/animation-playback-controller';
-import { setupCSS3DScene } from '../../scene/css3d-scene-manager';
-import { startImage2TexturePreRendering } from '../../animation/render/image2texture-prerender-controller';
-import { startCss3dPreRendering } from '../../animation/render/css3d-prerender-controller';
-import { logError, logPreviewError } from '../../state/log-util';
-import { cleanupThreeJsPreview, initThreeJsPreview } from '../../scene/threejs-preview-manager';
+} from '../../state/animation-state.js';
+import { sanitizeHtml } from '../../data/string-serder.js';
+import {
+    animationPreviewCamera,
+    animationPreviewRenderer,
+    animationPreviewScene,
+    previewPlane,
+    setPreviewRenderTarget
+} from '../../state/threejs-state.js';
+import { runAnimationFrame } from '../../animation/playback/animation-playback-controller.js';
+import { setupCSS3DScene } from '../../scene/css3d-scene-manager.js';
+import { startImage2TexturePreRendering } from '../../animation/render/image2texture-prerender-controller.js';
+import { startCss3dPreRendering } from '../../animation/render/css3d-prerender-controller.js';
+import { logError, logPreviewError } from '../../state/log-util.js';
+import { cleanupThreeJsPreview, initThreeJsPreview } from '../../scene/threejs-preview-manager.js';
 
 let currentPreviewSettings = null;
 const targetFrameRate = 60;

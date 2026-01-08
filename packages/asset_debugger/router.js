@@ -1,4 +1,4 @@
-import { showLoadingSplash, updateLoadingProgress, hideLoadingSplash } from './loading-splash/loading-splash';
+import { showLoadingSplash, updateLoadingProgress, hideLoadingSplash } from './loading-splash/loading-splash.js';
 
 class Router {
     constructor() {

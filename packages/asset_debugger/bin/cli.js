@@ -28,8 +28,18 @@ const app = express();
 // Serve static files from the package root
 app.use(express.static(rootDir));
 
-// SPA fallback - serve index.html for all routes
+// SPA fallback - serve index.html only for navigation routes (not static assets)
 app.get('*', (req, res) => {
+    // If the request has a file extension for a static asset, return 404
+    // This prevents serving HTML for missing JS/CSS/etc files which causes MIME type errors
+    const staticExtensions = ['.js', '.css', '.json', '.map', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2', '.ttf', '.eot'];
+    const hasStaticExtension = staticExtensions.some(ext => req.path.endsWith(ext));
+
+    if (hasStaticExtension) {
+        res.status(404).send('Not found');
+        return;
+    }
+
     res.sendFile(join(rootDir, 'index.html'));
 });
 

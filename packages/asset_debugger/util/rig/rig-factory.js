@@ -5,21 +5,21 @@
  * Code moved from rig-heading.js to create a separate factory module.
  */
 import * as THREE from 'three';
-import { getState } from '../state/scene-state';
-import { getIsDragging, setupMouseListeners } from './rig-mouse-handler';
-import { 
+import { getState } from '../state/scene-state.js';
+import { getIsDragging, setupMouseListeners } from './rig-mouse-handler.js';
+import {
     clearRigVisualization,
-    rigDetails, 
+    rigDetails,
     updateRigDetails,
     rigOptions,
     updateLabelPosition
  } from './rig-controller.js'
- import { 
+ import {
     bones,
     boneJointMaterial,
     boneMaterial,
     boneSideMaterial,
-    boneVisualsGroup, 
+    boneVisualsGroup,
     findFarthestBone,
     setBoneMaterial,
     setBoneSideMaterial,
@@ -27,11 +27,11 @@ import {
     resetBoneVisualGroup,
     resetBones
   } from './bone-kinematics.js';
-import { createAxisIndicator } from '../../axis-indicator/axis-indicator';
-import { createLabels } from './rig-label-factory';
-import { applyJointConstraints } from './rig-constraint-manager';
-import { parseJointConstraints } from '../data/glb-classifier';
-import { addControlHandleToObject, primaryRigHandle } from './rig-handle-factory';
+import { createAxisIndicator } from '../../axis-indicator/axis-indicator.js';
+import { createLabels } from './rig-label-factory.js';
+import { applyJointConstraints } from './rig-constraint-manager.js';
+import { parseJointConstraints } from '../data/glb-classifier.js';
+import { addControlHandleToObject, primaryRigHandle } from './rig-handle-factory.js';
 
 /**
  * Create a rig system with visualization, controls and interactions

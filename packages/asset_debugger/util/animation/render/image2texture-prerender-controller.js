@@ -1,30 +1,30 @@
 import * as THREE from 'three';
-import { 
+import {
     animationDetected,
     animationDetectionSensitivity,
     animationDuration,
     animationStartDetected,
-    finalProgressAnimation, 
-    finalProgressDuration, 
-    finalProgressStartTime, 
-    isAnimationFinite, 
-    isPreviewActive, 
-    preRenderedFrames, 
-    preRenderingInProgress, 
-    preRenderMaxDuration, 
-    setAnimationDuration, 
-    setFinalProgressAnimation, 
-    setFinalProgressStartTime, 
-    setIsAnimationFinite, 
-    setIsPreviewAnimationPaused, 
-    setPreRenderedFrames, 
-    setPreRenderingInProgress, 
-} from "../../state/animation-state";
-import { showStatus } from '../../../modals/html-editor-modal/html-editor-modal';
-import { createMeshInfoPanel } from '../../../widgets/mesh-info-widget';
-import { logAnimationAnalysisReport } from '../../state/log-util';
-import { startPlayback, updateMeshTexture } from '../playback/animation-playback-controller';
-import { createTextureFromIframe } from './iframe2texture-render-controller';
+    finalProgressAnimation,
+    finalProgressDuration,
+    finalProgressStartTime,
+    isAnimationFinite,
+    isPreviewActive,
+    preRenderedFrames,
+    preRenderingInProgress,
+    preRenderMaxDuration,
+    setAnimationDuration,
+    setFinalProgressAnimation,
+    setFinalProgressStartTime,
+    setIsAnimationFinite,
+    setIsPreviewAnimationPaused,
+    setPreRenderedFrames,
+    setPreRenderingInProgress,
+} from "../../state/animation-state.js";
+import { showStatus } from '../../../modals/html-editor-modal/html-editor-modal.js';
+import { createMeshInfoPanel } from '../../../widgets/mesh-info-widget.js';
+import { logAnimationAnalysisReport } from '../../state/log-util.js';
+import { startPlayback, updateMeshTexture } from '../playback/animation-playback-controller.js';
+import { createTextureFromIframe } from './iframe2texture-render-controller.js';
 
 /**
  * Start pre-rendering animation frames
