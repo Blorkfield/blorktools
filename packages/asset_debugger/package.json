@@ -21,7 +21,8 @@
     "widgets",
     "index.html",
     "main.css",
-    "router.js"
+    "router.js",
+    "favicon.ico"
   ],
   "scripts": {
     "dev": "vite",
