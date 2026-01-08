@@ -1,6 +1,6 @@
 {
   "name": "@blorkfield/asset-debugger",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "3D asset debugging and visualization tool",
   "type": "module",
   "private": false,

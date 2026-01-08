@@ -1,6 +1,6 @@
 {
   "name": "@blorkfield/blorkpack",
-  "version": "0.53.1",
+  "version": "0.53.2",
   "description": "Asset management utilities for 3D scenes",
   "type": "module",
   "blorkType": "package",
