@@ -1,0 +1,33 @@
+name: Auto Create PR
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  create-pr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        run: |
+          # Check if PR already exists for this branch
+          EXISTING_PR=$(gh pr list --head "$GITHUB_REF_NAME" --json number --jq '.[0].number')
+
+          if [ -n "$EXISTING_PR" ]; then
+            echo "PR #$EXISTING_PR already exists for branch $GITHUB_REF_NAME"
+          else
+            gh pr create \
+              --title "$GITHUB_REF_NAME" \
+              --body "Auto-generated PR for branch \`$GITHUB_REF_NAME\`" \
+              --base main
+            echo "Created PR for branch $GITHUB_REF_NAME"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
