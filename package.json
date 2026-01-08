@@ -10,12 +10,12 @@
     "test": "turbo run test",
     "clean": "turbo run clean && rm -rf node_modules",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "version-packages": "lerna version",
-    "publish-packages": "lerna publish from-package"
+    "version-packages": "changeset version",
+    "publish-packages": "changeset publish"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.27.0",
     "@types/node": "^22.10.0",
-    "lerna": "^8.1.9",
     "prettier": "^3.4.2",
     "turbo": "^2.3.3",
     "typescript": "^5.7.2"

@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       force_publish:
-        description: 'Force publish all packages (for initial release)'
+        description: 'Force publish all packages'
         required: false
         type: boolean
         default: false
@@ -17,7 +17,7 @@ jobs:
     # Skip if this is a version bump commit (avoid infinite loop)
     if: "!contains(github.event.head_commit.message, 'chore(release):')"
     outputs:
-      has_changes: ${{ steps.check-changes.outputs.has_changes }}
+      published: ${{ steps.publish.outputs.published }}
 
     steps:
       - name: Generate bot token
@@ -51,60 +51,43 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Check for changes to publish
-        id: check-changes
+      - name: Check for changesets
+        id: check
         run: |
-          # Force publish if manually triggered with force flag
-          if [ "${{ inputs.force_publish }}" = "true" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Force publish enabled - will publish all packages"
-            exit 0
-          fi
-
-          # Check if lerna detects any packages that need versioning
-          CHANGED=$(pnpm lerna changed --json 2>/dev/null || echo "[]")
-          if [ "$CHANGED" = "[]" ]; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-            echo "No packages need versioning"
+          # Check if there are any changeset files (excluding README)
+          CHANGESETS=$(ls .changeset/*.md 2>/dev/null | grep -v README.md || true)
+          if [ -n "$CHANGESETS" ] || [ "${{ inputs.force_publish }}" = "true" ]; then
+            echo "has_changesets=true" >> $GITHUB_OUTPUT
+            echo "Found changesets or force publish enabled"
           else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Packages to version: $CHANGED"
+            echo "has_changesets=false" >> $GITHUB_OUTPUT
+            echo "No changesets found"
           fi
 
       - name: Version packages
-        if: steps.check-changes.outputs.has_changes == 'true'
+        if: steps.check.outputs.has_changesets == 'true'
         run: |
-          if [ "${{ inputs.force_publish }}" = "true" ]; then
-            pnpm lerna version --yes --force-publish
-          else
-            pnpm version-packages --yes
-          fi
-
-      - name: Push version commit and tags
-        if: steps.check-changes.outputs.has_changes == 'true'
-        run: git push --follow-tags
+          pnpm changeset version
+          git add -A
+          git commit -m "chore(release): version packages" || echo "No changes to commit"
+          git push
 
       - name: Build
-        if: steps.check-changes.outputs.has_changes == 'true'
+        if: steps.check.outputs.has_changesets == 'true'
         run: pnpm build
 
       - name: Publish to npm
-        if: steps.check-changes.outputs.has_changes == 'true'
-        run: pnpm publish-packages --yes
+        id: publish
+        if: steps.check.outputs.has_changesets == 'true'
+        run: |
+          pnpm changeset publish
+          echo "published=true" >> $GITHUB_OUTPUT
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Get published versions for Docker
-        if: steps.check-changes.outputs.has_changes == 'true'
-        id: versions
-        run: |
-          # Get asset-debugger version from package.json
-          VERSION=$(node -p "require('./packages/asset_debugger/package.json').version")
-          echo "asset_debugger_version=$VERSION" >> $GITHUB_OUTPUT
-
   publish-docker:
     needs: version-and-publish
-    if: needs.version-and-publish.outputs.has_changes == 'true'
+    if: needs.version-and-publish.outputs.published == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -114,7 +97,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: main  # Get the latest with version bump
+          ref: main
+
+      - name: Get version
+        id: version
+        run: |
+          # Pull latest to get version bump commit
+          git pull origin main
+          VERSION=$(node -p "require('./packages/asset_debugger/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -125,12 +116,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Get version
-        id: version
-        run: |
-          VERSION=$(node -p "require('./packages/asset_debugger/package.json').version")
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
