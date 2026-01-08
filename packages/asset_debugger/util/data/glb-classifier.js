@@ -1,4 +1,4 @@
-import { deduplicateItemsByName } from "./duplicate-handler";
+import { deduplicateItemsByName } from "./duplicate-handler.js";
 
 export function validateGLBHeader(dataView) {
     if (dataView.byteLength < 12) {

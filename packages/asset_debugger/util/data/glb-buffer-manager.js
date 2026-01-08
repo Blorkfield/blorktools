@@ -1,4 +1,4 @@
-import { BINARY_DATA_PROPERTY, MESH_BINARY_EXTENSION, MESH_INDEX_PROPERTY } from "../state/glb-preview-state";
+import { BINARY_DATA_PROPERTY, MESH_BINARY_EXTENSION, MESH_INDEX_PROPERTY } from "../state/glb-preview-state.js";
 import { validateGLBHeader, validateJSONChunk, validateBinaryChunk, isRemovalOperation, hasExtension, hasBufferURI, isDataURI, getChunkInfo } from './glb-classifier.js';
 
 export function associateBinaryBufferWithMesh(glbArrayBuffer, meshIndex, binaryData) {

@@ -1,30 +1,30 @@
-import { showStatus } from "../../../modals/html-editor-modal/html-editor-modal";
-import { createMeshInfoPanel } from "../../../widgets/mesh-info-widget";
-import { updateMeshTexture } from "../playback/animation-playback-controller";
-import { 
+import { showStatus } from "../../../modals/html-editor-modal/html-editor-modal.js";
+import { createMeshInfoPanel } from "../../../widgets/mesh-info-widget.js";
+import { updateMeshTexture } from "../playback/animation-playback-controller.js";
+import {
     animationCaptureStartTime,
-    animationDuration, 
-    animationPlaybackStartTime, 
-    finalProgressAnimation, 
-    finalProgressDuration, 
-    finalProgressStartTime, 
-    isAnimationFinite, 
-    isPreviewActive, 
-    preRenderedFrames, 
-    preRenderingInProgress, 
-    preRenderMaxDuration, 
-    setAnimationCaptureStartTime, 
-    setAnimationDuration, 
-    setAnimationPlaybackStartTime, 
-    setFinalProgressAnimation, 
-    setFinalProgressStartTime, 
-    setIsAnimationFinite, 
-    setIsPreviewAnimationPaused, 
-    setPreRenderedFrames, 
-    setPreRenderingInProgress 
-} from "../../state/animation-state";
-import { logAnimationAnalysisReport } from "../../state/log-util";
-import { injectUnifiedAnimationDetectionScript } from "../../data/animation-classifier";
+    animationDuration,
+    animationPlaybackStartTime,
+    finalProgressAnimation,
+    finalProgressDuration,
+    finalProgressStartTime,
+    isAnimationFinite,
+    isPreviewActive,
+    preRenderedFrames,
+    preRenderingInProgress,
+    preRenderMaxDuration,
+    setAnimationCaptureStartTime,
+    setAnimationDuration,
+    setAnimationPlaybackStartTime,
+    setFinalProgressAnimation,
+    setFinalProgressStartTime,
+    setIsAnimationFinite,
+    setIsPreviewAnimationPaused,
+    setPreRenderedFrames,
+    setPreRenderingInProgress
+} from "../../state/animation-state.js";
+import { logAnimationAnalysisReport } from "../../state/log-util.js";
+import { injectUnifiedAnimationDetectionScript } from "../../data/animation-classifier.js";
 
 /**
  * Start pre-rendering for CSS3D content

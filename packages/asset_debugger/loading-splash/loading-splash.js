@@ -1,6 +1,6 @@
 // loading-splash.js - Updated for overlay integration
 
-import { getCaller } from "../util/state/log-util";
+import { getCaller } from "../util/state/log-util.js";
 
 /**
  * Shows the loading splash screen overlay

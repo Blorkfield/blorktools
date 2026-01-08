@@ -1,16 +1,16 @@
 import * as THREE from 'three';
-import { 
-    previewAnimationFrame, 
-    previewCamera, 
-    previewControls, 
-    previewRenderer, 
-    previewScene, 
-    setPreviewAnimationFrame, 
-    setPreviewCamera, 
-    setPreviewControls, 
-    setPreviewRenderer, 
+import {
+    previewAnimationFrame,
+    previewCamera,
+    previewControls,
+    previewRenderer,
+    previewScene,
+    setPreviewAnimationFrame,
+    setPreviewCamera,
+    setPreviewControls,
+    setPreviewRenderer,
     setPreviewScene
-} from "../../state/glb-preview-state";
+} from "../../state/glb-preview-state.js";
 import { OrbitControls } from 'three/examples/jsm/Addons';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 

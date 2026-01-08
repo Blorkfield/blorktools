@@ -1,5 +1,5 @@
-import { classifyAnimation, classifyTransition } from "../../data/animation-classifier";
-import { 
+import { classifyAnimation, classifyTransition } from "../../data/animation-classifier.js";
+import {
     animationProperties,
     animationStack,
     batchTimeWindow,
@@ -12,7 +12,7 @@ import {
     resetCurrentAniamtionBatch,
     setLastAnimationTime,
     setLastBatchTime
-} from "../../state/css3d-state";
+} from "../../state/css3d-state.js";
 
 /**
  * Set up bounce animation tracking for the iframe
