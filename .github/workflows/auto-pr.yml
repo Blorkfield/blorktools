@@ -84,13 +84,10 @@ jobs:
           CHANGESET_FILE=$(echo "$DESC" | tr '/' '-' | tr ' ' '-' | tr '[:upper:]' '[:lower:]')
           CHANGESET_PATH=".changeset/${CHANGESET_FILE}.md"
 
-          # Skip if changeset already exists for this branch
-          if ls .changeset/*.md 1> /dev/null 2>&1; then
-            EXISTING=$(ls .changeset/*.md | grep -v README.md || true)
-            if [ -n "$EXISTING" ]; then
-              echo "Changeset already exists, skipping creation"
-              exit 0
-            fi
+          # Skip if changeset already exists for THIS branch
+          if [ -f "$CHANGESET_PATH" ]; then
+            echo "Changeset already exists for this branch, skipping creation"
+            exit 0
           fi
 
           # Detect which packages have changes compared to main
