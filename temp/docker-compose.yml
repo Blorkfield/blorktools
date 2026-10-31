@@ -1,0 +1,59 @@
+services:
+  frontpage:
+    image: ghcr.io/littlecarlito/blorkfield-site:latest
+    container_name: frontpage
+    restart: unless-stopped
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontpage.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.frontpage.entrypoints=http"
+      - "traefik.http.services.frontpage.loadbalancer.server.port=80"
+      - "com.centurylinklabs.watchtower.enable=true"
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    restart: unless-stopped
+    ports:
+      - "${HOMEPAGE_PORT}:3000"
+    volumes:
+       - ./data/homepage:/app/config
+       - ./data/homepage/images:/app/public/images
+       - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - HOMEPAGE_ALLOWED_HOSTS=${HOMEPAGE_ALLOWED_HOSTS}
+      - PUID=${PUID}
+      - PGID=${PGID}
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+    volumes:
+      - plex_config:/config
+      - ${PLEX_MOVIES_PATH}:/movies
+      - ${PLEX_TV_PATH}:/tv
+    environment:
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - VERSION=docker
+      - PLEX_CLAIM=${PLEX_CLAIM}
+  blorktools-debugger:
+    image: ghcr.io/blorkfield/asset-debugger:latest
+    container_name: blorktools-debugger
+    restart: unless-stopped
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.debugger.rule=Host(`debugger.${DOMAIN}`)"
+      - "traefik.http.routers.debugger.entrypoints=http"
+      - "traefik.http.services.debugger.loadbalancer.server.port=3001"
+      - "com.centurylinklabs.watchtower.enable=true"
+networks:
+  web:
+    external: true
+volumes:
+  plex_config:
